@@ -1,4 +1,5 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { ProductModels } from "../../../shared/models/product.models";
 
 @Component({
   selector: 'app-product',
@@ -8,9 +9,7 @@ import {Component, EventEmitter, Input, Output} from '@angular/core';
   styleUrl: './product.component.scss'
 })
 export class ProductComponent {
-  @Input({required: true}) img: string = '';
-  @Input({required: true}) price: number = 0;
-  @Input({required: true}) title: string = '';
+  @Input({required: true}) product!: ProductModels;
 
 
   @Output() addToCart = new EventEmitter();
