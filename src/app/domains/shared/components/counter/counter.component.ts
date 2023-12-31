@@ -1,4 +1,4 @@
-import {Component, Input, SimpleChanges} from '@angular/core';
+import { Component, Input, signal, SimpleChanges, WritableSignal } from '@angular/core';
 
 @Component({
   selector: 'app-counter',
@@ -10,7 +10,9 @@ import {Component, Input, SimpleChanges} from '@angular/core';
 export class CounterComponent {
 
   @Input({required: true}) duration: number = 0;
-  @Input({required: true}) message: string = 'Hpla';
+  @Input({required: true}) message: string = 'hello';
+  counter: WritableSignal<number> = signal(0);
+  counterRef: number | undefined = 0;
 
   constructor() {
     // NO ASYNC
@@ -24,7 +26,12 @@ export class CounterComponent {
     // Before and during render
     console.log('NgOnChange');
     console.log('-'.repeat(10));
-    console.log(changes)
+    console.log(changes);
+    const duration = changes['duration'];
+    if (duration && duration.currentValue !== duration.previousValue) {
+      this.doSomething();
+    }
+
 
   }
 
@@ -36,6 +43,27 @@ export class CounterComponent {
     console.log('-'.repeat(10));
     console.log('duration =>', this.duration);
     console.log('message =>', this.message);
+    this.counterRef = window.setInterval(() => {
+      console.log("run interval");
+      this.counter.update(stateprev => stateprev + 1);
+    }, 1000);
+  }
+
+  ngAfterViewInit() {
+    // after render
+    // hijos ya fueron pintados
+    console.log("ngAfterViewInitt")
+    console.log('-'.repeat(10));
+  }
+
+  ngOnDestroy() {
+    console.log("ngOnDestroy")
+    console.log('-'.repeat(10));
+    window.clearInterval(this.counterRef);
+  }
+
+  doSomething() {
+    console.log('change duration');
   }
 
 }
