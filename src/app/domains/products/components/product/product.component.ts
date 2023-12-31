@@ -16,6 +16,6 @@ export class ProductComponent {
 
   addTOCartHandler() {
     console.log('Click form child');
-    this.addToCart.emit(" Este es un mensaje desde el hijo");
+    this.addToCart.emit(this.product);
   }
 }
