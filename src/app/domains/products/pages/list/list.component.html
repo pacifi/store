@@ -1,10 +1,11 @@
+<button (click)="createNewProduct()">Add Product</button>
 <div class="flex space-x-4 mt-5">
   <div class="w-80">
     <ul>
-      <li> <a routerLink="/" >all</a></li>
+      <li><a routerLink="/">all</a></li>
 
-      @for(category of categories();track category.id){
-        <li> <a routerLink="/" [queryParams]="{category_id: category.id}">{{category.name}}</a></li>
+      @for (category of categories(); track category.id) {
+        <li><a routerLink="/" [queryParams]="{category_id: category.id}">{{ category.name }}</a></li>
       }
     </ul>
   </div>
@@ -12,7 +13,8 @@
 
     <div class="grid grid-cols-4 gap-8 w-full">
       @for (product of products(); track product.id) {
-        <app-product [product]="product" (addToCart)="addToCard($event)"/>
+        <app-product [product]="product" (addToCart)="addToCard($event)" (updateProductEmmit)="updateProduct($event)"
+                     (deleteProductEmmit)="deleteProduct($event)"/>
       }
     </div>
 

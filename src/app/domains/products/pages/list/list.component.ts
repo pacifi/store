@@ -3,7 +3,7 @@ import { Component, inject, Input, signal, SimpleChanges } from '@angular/core';
 
 import { ProductComponent } from "../../components/product/product.component";
 import { HeaderComponent } from '@shared/components/header/header.component';
-import { ProductModels } from "@shared/models/product.models";
+import { ProductModelDtoUpdate, ProductModels, ProductModelsDTOCreate } from "@shared/models/product.models";
 import { CartService } from "@shared/services/cart.service";
 import { ProductService } from "@shared/services/product.service";
 import { CategoryService } from '@shared/services/category.service';
@@ -34,7 +34,6 @@ export class ListComponent {
 
   ngOnChanges(changes: SimpleChanges) {
     this.getProducts();
-
   }
 
   addToCard(product: ProductModels) {
@@ -58,6 +57,39 @@ export class ListComponent {
 
         }
       });
+  }
+
+  createNewProduct() {
+    console.log("create Product");
+    const productDto: ProductModelsDTOCreate = {
+      title: 'Nuevo Product',
+      description: 'bla bla bla',
+      images: ['https://imgur.com/KXj6Tpb', 'https://imgur.com/KXj6Tpb'],
+      price: 5,
+      categoryId: 1,
+    }
+    this.productService.create(productDto)
+      .subscribe(data => {
+        console.log(data);
+        this.products.update((prevState) => [...prevState, data])
+      });
+  }
+
+  updateProduct(product: ProductModels) {
+
+    const changes: ProductModelDtoUpdate = {
+      title: "Producto Actualizadosss"
+    }
+    this.productService.update(product.id, changes).subscribe(data => {
+      console.log(data);
+      this.getProducts();
+    })
+  }
+
+  deleteProduct(product: ProductModels) {
+    this.productService.delete(product.id).subscribe(data => {
+      this.getProducts();
+    });
   }
 }
 

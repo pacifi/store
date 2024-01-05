@@ -1,7 +1,7 @@
 import { Component, Input, inject, signal } from '@angular/core';
 import { ProductService } from "@shared/services/product.service";
 import { ProductModels } from "@shared/models/product.models";
-import { CurrencyPipe, NgForOf, UpperCasePipe } from "@angular/common";
+import { CurrencyPipe, UpperCasePipe } from "@angular/common";
 import { CartService } from "@shared/services/cart.service";
 
 @Component({
@@ -49,6 +49,5 @@ export class ProductDetailComponent {
     if (product) {
       this.cartService.addToCart(product);
     }
-
   }
 }

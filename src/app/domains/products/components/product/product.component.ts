@@ -24,9 +24,20 @@ export class ProductComponent {
 
 
   @Output() addToCart = new EventEmitter();
+  @Output() updateProductEmmit = new EventEmitter();
+  @Output() deleteProductEmmit = new EventEmitter();
 
   addTOCartHandler() {
     console.log('Click form child');
     this.addToCart.emit(this.product);
   }
+
+  updateProduct() {
+    this.updateProductEmmit.emit(this.product)
+  }
+
+  deleteProduct() {
+    this.deleteProductEmmit.emit(this.product)
+  }
+
 }
