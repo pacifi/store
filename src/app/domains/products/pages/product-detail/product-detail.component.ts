@@ -1,13 +1,15 @@
 import { Component, Input, inject, signal } from '@angular/core';
 import { ProductService } from "@shared/services/product.service";
 import { ProductModels } from "@shared/models/product.models";
-import { UpperCasePipe } from "@angular/common";
+import { CurrencyPipe, UpperCasePipe } from "@angular/common";
+import { CartService } from "@shared/services/cart.service";
 
 @Component({
   selector: 'app-product-detail',
   standalone: true,
   imports: [
-    UpperCasePipe
+    UpperCasePipe,
+    CurrencyPipe
   ],
   templateUrl: './product-detail.component.html',
   styleUrl: './product-detail.component.scss'
@@ -17,8 +19,10 @@ export class ProductDetailComponent {
 
   @Input() id?: string;
   product = signal<ProductModels | null>(null);
-  private productService = inject(ProductService);
+
   cover = signal('');
+  private productService = inject(ProductService);
+  private cartService = inject(CartService);
 
 
   ngOnInit() {
@@ -40,4 +44,11 @@ export class ProductDetailComponent {
     this.cover.set(newImg);
   }
 
+  addToCart() {
+    const product = this.product();
+    if (product) {
+      this.cartService.addToCart(product);
+    }
+
+  }
 }
