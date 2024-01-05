@@ -1,4 +1,4 @@
-import { Component, inject, Input, signal } from '@angular/core';
+import { Component, inject, Input, signal, SimpleChanges } from '@angular/core';
 
 
 import { ProductComponent } from "../../components/product/product.component";
@@ -29,25 +29,28 @@ export class ListComponent {
 
 
   ngOnInit() {
-    this.getProducts();
     this.getCategories();
   }
 
-  ngOnChanges(){
-    console.log(this.category_id);
+  ngOnChanges(changes: SimpleChanges) {
+    this.getProducts();
+
   }
+
   addToCard(product: ProductModels) {
     this.cartService.addToCart(product);
   }
-  private getProducts(){
-    this.productService.getProducts()
+
+  private getProducts() {
+    this.productService.getProducts(this.category_id)
       .subscribe({
         next: (data) => this.products.set(data),
         error: () => {
         }
       });
   }
-  private getCategories(){
+
+  private getCategories() {
     this.categoryService.getAll()
       .subscribe({
         next: (data) => this.categories.set(data),

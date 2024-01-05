@@ -16,7 +16,7 @@ import { HeaderComponent } from "@shared/components/header/header.component";
   templateUrl: './about.component.html',
   styleUrl: './about.component.scss'
 })
-export class AboutComponent {
+export  default class AboutComponent {
 
   duration: WritableSignal<number> = signal(1000);
   message: WritableSignal<string> = signal('Hola')
