@@ -3,6 +3,7 @@ import { ProductModels } from "../../../shared/models/product.models";
 import { CurrencyPipe, DatePipe, UpperCasePipe } from "@angular/common";
 import { ReversePipe } from "@shared/pipes/reverse.pipe";
 import { TimeAgoPipe } from "@shared/pipes/time-ago.pipe";
+import { RouterLink } from "@angular/router";
 
 @Component({
   selector: 'app-product',
@@ -12,7 +13,8 @@ import { TimeAgoPipe } from "@shared/pipes/time-ago.pipe";
     CurrencyPipe,
     DatePipe,
     ReversePipe,
-    TimeAgoPipe
+    TimeAgoPipe,
+    RouterLink
   ],
   templateUrl: './product.component.html',
   styleUrl: './product.component.scss'
