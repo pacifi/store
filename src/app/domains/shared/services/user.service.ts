@@ -1,5 +1,5 @@
 import { inject, Injectable } from '@angular/core';
-import { UserModels, UserModelsDtoCreate } from "@shared/models/user.models";
+import { UserModels, UserModelsDtoCreate, UserModelsDtoUpdate } from "@shared/models/user.models";
 import { HttpClient } from "@angular/common/http";
 import { environment } from "../../../../environments/environment";
 
@@ -21,5 +21,9 @@ export class UserService {
 
   getAll() {
     return this.http.get<UserModels[]>(this.apiUrl);
+  }
+
+  update(id: number, dto: UserModelsDtoUpdate) {
+    return this.http.put<UserModels>(`${this.apiUrl}/${id}`, dto);
   }
 }

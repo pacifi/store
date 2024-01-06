@@ -10,3 +10,7 @@ export interface UserModels {
 export interface UserModelsDtoCreate extends Omit<UserModels, 'id' | 'role'> {
 
 }
+
+export interface UserModelsDtoUpdate extends Partial<UserModelsDtoCreate> {
+  "role"?: string
+}

@@ -1,0 +1,9 @@
+@if (user()) {
+  <div>
+    <h1>My Profile</h1>
+    <p> id: {{ user()?.id }}</p>
+    <p>Nombre: {{ user()?.name }}</p>
+    <p>Email: {{ user()?.email }}</p>
+    <p>Role: {{ user()?.role }}</p>
+  </div>
+}
